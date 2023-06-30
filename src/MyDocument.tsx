@@ -44,9 +44,28 @@ const styles = StyleSheet.create({
     flex: 1,
     display: "flex",
     alignItems: "center",
+    justifyContent:"center",
+    marginBottom: "10px"
+  },
+  contentLayerSignature: {
+    flex: 1,
+    display: "flex",
+    alignItems: "center",
+    justifyContent:"center",
+    marginBottom: "10px",
+    width:130,
+  },
+  contentLayerPortaria: {
+    position: "absolute",
+    flex: 1,
+    display: "flex",
+    alignItems: "center",
+    marginBottom: "30px",
+    bottom:0
   },
   // Estilo da imagem do curso no PDF
   contentLayerLogo: {
+    
     flex: 1,
     display: "flex",
     justifyContent: "center",
@@ -55,76 +74,93 @@ const styles = StyleSheet.create({
     height: 70,
     maxWidth: 200, //define a largura maxima que a imagem pode conter para não quebrar o design
     maxHeight: 70, //define o tamanho maximo que a imagem pode conter para não quebrar o design
-    top: 80,
-    left: 220,
+    top: -150,
+    left: -240,
     backgroundColor: "",
   },
   // Estilo da nome do aluno do PDF
-  divName: {
-    display: "flex",
-    justifyContent: "flex-end",
-    alignItems: "center",
-    marginTop: 230,
-    marginBottom: 12,
-    backgroundColor: "",
-    width: 450,
-    height: 70,
-    maxWidth: 450,
-    maxHeight: 70,
-  },
+
   // Estilo 1 do texto das informações do PDF
   textName: {
-    fontFamily: "GoodVibrations", // Define a fonte personalizada
-    fontSize: 36,
+    
+    fontSize: 26,
     fontWeight: "bold",
     color: "#25364B",
+    marginBottom:15,
+    marginTop:10,
   },
-  // Estilo 2 do texto das informações do PDF
-  textInfoH1: {
-    fontFamily: "Colus",
-    fontSize: 12,
-    fontWeight: "normal",
-    marginTop: 1, // Adiciona uma margem superior de 1 ponto
-    color: "#25364B",
-  },
-  // Estilo 3 do texto das informações do PDF
-  spacing: {
-    fontFamily: "Colus",
-    fontSize: 12,
-    fontWeight: "normal",
+  divcolumn:{
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 10,
-    color: "#25364B",
+    flexDirection: "column",
+    position:"absolute",
+    left: 110,
+    top: 205
   },
+  divRight:{
+    display: "flex",
+    flexDirection: "column",
+    position:"absolute",
+    justifyContent:"center",
+    alignItems:"center",
+    width:130,
+    right: 115,
+    top: 200,
+   
+    
+  },
+  maxHeightQRCode:{
+    maxHeight:"70px",
+    maxWidth: "70px",
+    marginBottom: "10px"
+    
+  },
+
+  textPadrao:{
+    fontSize: 12,
+    maxWidth: "280px",
+    wordBreak: "break-word",
+    lineHeight: "1.8"
+
+  },
+  text:{
+    fontSize: 12,
+    lineHeight: "1.8"
+  },
+  textCertificado: {
+    fontSize: 36,
+    color: "#25364B",
+    marginBottom: 25
+  },
+
+
   // Estilo imagem de assinatura do PDF
   signature: {
     display: "flex",
-    justifyContent: "flex-end",
+    botton:0,
     alignItems: "center",
-    left: 100,
-    marginTop: 10,
+    justifyContent: "flex-end",
+
     width: 110,
     height: 50,
     maxWidth: 110,
     maxHeight: 50,
-    backgroundColor: "",
+    
   },
   // Estilo 4 do texto das informações do PDF
   signatureTextName: {
-    marginTop: 5,
-    left: 100,
-    fontSize: 9,
-    fontFamily: "Colus",
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center",
+    // width: 130,
+    fontSize: 10,
+    maxWidth: 130,
     color: "#25364B",
   },
   // Estilo 5 do texto das informações do PDF
   signatureTextCategory: {
-    top: -1,
-    left: 100,
-    fontSize: 8,
-    fontFamily: "Colus",
+    
+    fontSize: 9,
+    
     color: "#25364B",
   },
 });
@@ -136,10 +172,16 @@ interface MyDocumentProps {
     curso: string;
     coordenador: string;
     cargaHoraria: string;
+    imagemPadrao: string;
     imagemFundo: string;
     imagemLogo: string;
-    assinatura: string;
+    assinaturaResponsavel: string;
     responsavel: string;
+    assinaturaDiretor: string;
+    diretor: string;
+    cpf: string;
+    periodoIni: string;
+    periodoFim: string;
   };
 }
 
@@ -149,6 +191,7 @@ const MyDocument = ({ data }: MyDocumentProps) => (
     <Document>
       {/*folha do pdf no formato A4 e modo paisagem (landscape)*/}
       <Page size="A4" orientation="landscape" style={styles.page}>
+        
         {/*view = div*/}
         <View style={styles.backgroundLayer}>
           <Image
@@ -156,36 +199,62 @@ const MyDocument = ({ data }: MyDocumentProps) => (
             style={{ width: "100%", height: "100%" }}
           />
         </View>
+        <View style={styles.backgroundLayer}>
+          <Image
+            src={data.imagemPadrao}
+            style={{ width: "100%", height: "100%" }}
+          />
+        </View>
         <View style={styles.contentLayerLogo}>
           <Image
             src={data.imagemLogo}
-            style={{ width: "50%", height: "50%" }}
+            style={{ width: "70%", height: "70%" }}
           />
         </View>
-        <View style={styles.divName}>
+        <View style={styles.divcolumn}>
+          <Text style={styles.textCertificado}>CERTIFICADO</Text>
+          <Text style={styles.textPadrao}>A faculdade Selesiano do Nordeste, Credenciada pela portaria n.º 888 de 88/88/8888, certifica que</Text>
           <Text style={styles.textName}>{data.nomeAluno}</Text>
+          <Text style={styles.textPadrao}>CPF n.º [{data.cpf}], Concluiu o curso de</Text>
+          <Text style={styles.textName}>{data.curso}</Text>
+          <Text style={styles.textPadrao}> Coordenado por {data.coordenador}</Text>
+          <Text style={styles.text}> com {data.cargaHoraria} horas totais, no periodo de [{data.periodoIni}] a [{data.periodoFim}]</Text>
         </View>
-        <View style={styles.contentLayer}>
-          <Text style={styles.textInfoH1}>
-            Concluiu o curso de {data.curso}
-          </Text>
-          <Text style={styles.textInfoH1}>
-            Coordenado por {data.coordenador}
-          </Text>
-          <Text style={styles.textInfoH1}>
-            Com carga horária de {data.cargaHoraria} hora(s).
-          </Text>
-          <Text style={styles.spacing}>Portaria sa IES MEC 177/2000</Text>
-          <View style={styles.signature}>
-            <Image
-              src={data.assinatura}
-              style={{ width: "50%", height: "50%" }}
-            />
+        <View style={styles.divRight}>
+          <Image
+            src={data.imagemLogo}
+            style={styles.maxHeightQRCode}
+          />
+            <View style={styles.contentLayer}>
+            <View style={styles.signature}>
+              <Image
+                src={data.assinaturaDiretor}
+                
+              />
+            </View>
+            <Text style={styles.signatureTextName}>{data.diretor}</Text>
+            <Text style={styles.signatureTextCategory}>
+              Diretor Geral
+            </Text>
           </View>
-          <Text style={styles.signatureTextName}>{data.responsavel}</Text>
-          <Text style={styles.signatureTextCategory}>
-            Responsável acadêmico
-          </Text>
+          <View style={styles.contentLayer}>
+            <View style={styles.signature}>
+              <Image
+                src={data.assinaturaResponsavel}
+                
+              />
+            </View>
+            <Text style={styles.signatureTextName}>{data.responsavel}</Text>
+            <Text style={styles.signatureTextCategory}>
+              Responsável acadêmico
+            </Text>
+          </View>
+        
+        </View>
+   
+        <View style={styles.contentLayerPortaria}>
+          
+          <Text style={styles.text}>Portaria da IES MEC 177/2000</Text>
         </View>
       </Page>
     </Document>

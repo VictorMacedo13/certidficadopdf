@@ -1,7 +1,7 @@
 import React from "react";
 import MyDocument from "./MyDocument";
 import { pdf } from "@react-pdf/renderer";
-import "./app.css";
+import "./App.css";
 
 // dados preenchidos para o PDF
 const data = {
@@ -9,13 +9,19 @@ const data = {
   curso: "React com Typescript",
   coordenador: "José Moura Soares",
   cargaHoraria: "500",
+  imagemPadrao:"https://media.discordapp.net/attachments/723159987567722576/1124061821918253156/CertificadoModelounifastBG23_2.png?width=956&height=676",
   imagemFundo:
-    "https://b82cc7cc3f8c33e79db00028aaa45fd0.cdn.bubble.io/f1685392330908x406047499559267600/WhatsApp%20Image%202023-05-29%20at%2017.07.03.jpeg",
+    "https://cdn.discordapp.com/attachments/723159987567722576/1124058451115524157/Certificado-Modelo_unifast-BG1_2.png",
   imagemLogo:
     "https://b82cc7cc3f8c33e79db00028aaa45fd0.cdn.bubble.io/f1685392330908x406047499559267600/WhatsApp%20Image%202023-05-29%20at%2017.07.03.jpeg",
-  assinatura:
+  assinaturaResponsavel:
     "https://b82cc7cc3f8c33e79db00028aaa45fd0.cdn.bubble.io/f1685392330908x406047499559267600/WhatsApp%20Image%202023-05-29%20at%2017.07.03.jpeg",
-  responsavel: "Maria José da Silva",
+  responsavel: "Veronica Dantas",
+  assinaturaDiretor:"https://b82cc7cc3f8c33e79db00028aaa45fd0.cdn.bubble.io/f1685392330908x406047499559267600/WhatsApp%20Image%202023-05-29%20at%2017.07.03.jpeg",
+  diretor:"Armando Moury Fernandes",
+  cpf:"888.888.888-88",
+  periodoIni:"XX/XX/XXXX",
+  periodoFim:"XX/XX/XXXX",
 };
 
 // Gera o PDF
